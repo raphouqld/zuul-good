@@ -43,23 +43,53 @@ public class Game
 
 
         // Exits
-        vKitchen.setExits(null,vLivingRoom,null,null);
-        vLivingRoom.setExits(null,vGarden,null,vKitchen);
-        vGarden.setExits(vKidsHut,vFrontHouse,vThereseHouse,vLivingRoom);
-        vKidsHut.setExits(null,null,vGarden,null);
+            // Kitchen
+        vKitchen.setExit("east", vLivingRoom);
 
-        vFrontHouse.setExits(null,null,vHouseStreet,vGarden);
+            // Living room
+        vLivingRoom.setExit("east", vGarden);
+        vLivingRoom.setExit("west", vKitchen);
 
-        vThereseHouse.setExits(vGarden,vHouseStreet,null,null);
-        vHouseStreet.setExits(vFrontHouse,null,vMainStreet,vThereseHouse);
+            // Garden
+        vGarden.setExit("north", vKidsHut);
+        vGarden.setExit("east", vFrontHouse);
+        vGarden.setExit("south", vThereseHouse);
+        vGarden.setExit("west", vLivingRoom);
 
-        vBakery.setExits(null,vMainStreet,null,null);
-        vMainStreet.setExits(vHouseStreet,vButcherShop,vMainSquare,vBakery);
-        vButcherShop.setExits(null,null,null,vMainStreet);
+            // Kids' hut
+        vKidsHut.setExit("south", vGarden);
 
-        vMainSquare.setExits(vMainStreet,vGrocery,null,null);
-        vGrocery.setExits(null,null,null,vMainSquare);
+            // Front of the house
+        vFrontHouse.setExit("south", vHouseStreet);
+        vFrontHouse.setExit("west", vGarden);
 
+            // Therese's house
+        vThereseHouse.setExit("north", vGarden);
+        vThereseHouse.setExit("east", vHouseStreet);
+
+            // House street
+        vHouseStreet.setExit("north", vFrontHouse);
+        vHouseStreet.setExit("south", vMainStreet);
+        vHouseStreet.setExit("west", vThereseHouse);
+
+            // Bakery
+        vBakery.setExit("east", vMainStreet);
+
+            // Main street
+        vMainStreet.setExit("north", vHouseStreet);
+        vMainStreet.setExit("east", vButcherShop);
+        vMainStreet.setExit("south", vMainSquare);
+        vMainStreet.setExit("west", vBakery);
+
+            // Butcher's shop
+        vButcherShop.setExit("west", vMainStreet);
+
+            // Main square
+        vMainSquare.setExit("north", vMainStreet);
+        vMainSquare.setExit("east", vGrocery);
+
+            // Grocery
+        vGrocery.setExit("west", vMainSquare);
 
         this.aCurrentRoom = vKitchen;
     }
