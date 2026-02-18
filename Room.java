@@ -1,5 +1,7 @@
 /**
- * Classe Room - un lieu du jeu d'aventure Zuul.
+ * Room class - represents a single location in the "Henriette's Feast" game.
+ * Each room has a text description and exits to neighboring rooms,
+ * stored in a HashMap that maps directions (e.g. "north", "up") to rooms.
  *
  * @author Raphaël Quillaud
  */
@@ -7,27 +9,56 @@
 import java.util.HashMap;
 import java.util.Set;
 
-public class Room
-{
+public class Room {
     private final String aDescription;
     private final HashMap<String, Room> aExits;
 
+    /**
+     * Creates a room with the given description and no exits yet.
+     *
+     * @param pDescription the textual description of this room
+     */
     public Room(final String pDescription) {
         this.aDescription = pDescription;
         this.aExits = new HashMap<String, Room>();
     }
-    
+
+    /**
+     * Returns the description of this room.
+     *
+     * @return the room description
+     */
     public String getDescription() {
         return this.aDescription;
     }
 
+    /**
+     * Defines an exit from this room in the given direction.
+     *
+     * @param pDirection the direction of the exit (e.g. "north", "east", "up")
+     * @param pNeighbor  the neighboring room in that direction
+     */
     public void setExit(final String pDirection, final Room pNeighbor) {
         this.aExits.put(pDirection, pNeighbor);
     }
 
+    /**
+     * Returns the neighboring room in the given direction, or null
+     * if there is no exit in that direction.
+     *
+     * @param pDirection the direction of the desired exit
+     * @return the neighboring room, or null if none
+     */
     public Room getExit(final String pDirection) {
         return this.aExits.get(pDirection);
     }
+
+    /**
+     * Builds and returns a string listing all available exits
+     * from this room, in the form "Exits : north east up".
+     *
+     * @return a string describing the exits of this room
+     */
     public String getExitString() {
         String vExitString = "Exits :";
         Set<String> vKeys = this.aExits.keySet();

@@ -1,19 +1,30 @@
 /**
- * Classe Game - le moteur du jeu d'aventure Zuul.
+ * Game class - the main engine of the text adventure "Henriette's Feast".
+ * It sets up the snowy village, creates all the rooms and their exits,
+ * then runs the game loop where Grandma Henriette moves around the village
+ * to gather everything she needs for the Christmas dinner.
  *
  * @author Raphaël Quillaud
  */
-public class Game
-{
+
+public class Game {
     private Room aCurrentRoom;
     private Parser aParser;
 
+    /**
+     * Creates the game, initializes the rooms and the parser,
+     * then starts the game loop.
+     */
     public Game() {
         this.createRooms();
         this.aParser = new Parser();
         play();
     }
 
+    /**
+     * Main game loop: prints the welcome message, then repeatedly
+     * reads and processes player commands until the game ends.
+     */
     private void play() {
         this.printWelcome();
         boolean vFinished = false;
@@ -26,6 +37,10 @@ public class Game
         System.out.println("Thank you for playing. Goodbye.");
     }
 
+    /**
+     * Creates all rooms of the village and connects them with exits.
+     * Also sets the starting room (Henriette's kitchen).
+     */
     private void createRooms() {
         // Rooms
         Room vKitchen       = new Room("In Henriette's warm, cosy kitchen");
@@ -99,6 +114,13 @@ public class Game
         this.aCurrentRoom = vKitchen;
     }
 
+    /**
+     * Tries to go to the room in the direction given by the command.
+     * If there is no second word or no exit in that direction,
+     * prints an error message.
+     *
+     * @param pCommand the command containing the direction
+     */
     private void goRoom(final Command pCommand) {
         if (!pCommand.hasSecondWord()) {
             System.out.println("Go where ?");
@@ -117,6 +139,9 @@ public class Game
         printLocationInfo();
     }
 
+    /**
+     * Prints the welcome text and the initial location information.
+     */
     private void printWelcome() {
         System.out.println("""
                 
@@ -137,12 +162,19 @@ public class Game
         printLocationInfo();
     }
 
+    /**
+     * Prints the current room description and its available exits.
+     */
     private void printLocationInfo() {
         System.out.println("\n" + this.aCurrentRoom.getDescription());
         System.out.print(this.aCurrentRoom.getExitString());
         System.out.println("\n");
     }
 
+    /**
+     * Prints a help message describing the game objective
+     * and the available commands.
+     */
     private void printHelp() {
         System.out.println("""
                 You are Grandma Henriette in a small snowy village.
@@ -152,6 +184,13 @@ public class Game
                   go quit help""");
     }
 
+    /**
+     * Tries to quit the game. If the command has a second word,
+     * quitting is refused.
+     *
+     * @param pCommand the quit command
+     * @return true if the game should end, false otherwise
+     */
     private boolean quit(final Command pCommand) {
         if (pCommand.hasSecondWord()) {
             System.out.println("Quit what ?");
@@ -162,6 +201,12 @@ public class Game
         }
     }
 
+    /**
+     * Interprets and executes the given command.
+     *
+     * @param pCommand the command to process
+     * @return true if the game should end, false otherwise
+     */
     private boolean processCommand(final Command pCommand) {
         if (pCommand.isUnknown()) {
             System.out.println("I don't know what you mean...");

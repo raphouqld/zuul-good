@@ -24,8 +24,7 @@ public class Parser
     /**
      * Constructeur par defaut qui cree les 2 objets prevus pour les attributs
      */
-    public Parser()
-    {
+    public Parser() {
         this.aValidCW = new CommandWords();
         this.aReader  = new Scanner( System.in );
         // System.in designe le clavier, comme System.out designe l'ecran
@@ -34,8 +33,7 @@ public class Parser
     /**
      * @return The next command from the user.
      */
-    public Command getCommand()
-    {
+    public Command getCommand() {
         String vInputLine;    // contiendra toute la ligne tapee
         String vWord1 = null;
         String vWord2 = null;

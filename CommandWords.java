@@ -1,25 +1,22 @@
 /**
- * This class is part of the "World of Zuul" application.
- * "World of Zuul" is a very simple, text based adventure game.
+ * CommandWords class - stores all valid command words for
+ * the "Henriette's Feast" game and provides a way to check them.
+ * It is used by the parser to recognise which words are valid commands.
  *
- * This class holds an enumeration table of all command words known to the game.
- * It is used to recognise commands as they are typed in.
- *
- * @author  Michael Kolling and David J. Barnes + D.Bureau
- * @version 2008.03.30 + 2019.09.25
+ * @author Michael Kolling and David J. Barnes + D. Bureau + Raphaël Quillaud
+ * @version 2008.03.30 + 2019.09.25 + 2026.02.18
  */
-public class CommandWords
-{
+public class CommandWords  {
     // a constant array that will hold all valid command words
     private final String[] aValidCommands = { "go", "help", "quit" };
 
     /**
-     * Check whether a given String is a valid command word.
-     * @return true if a given string is a valid command,
-     * false if it isn't.
+     * Checks whether a given string is a valid command word.
+     *
+     * @param pString the word to test
+     * @return true if the given string is a valid command, false otherwise
      */
-    public boolean isCommand( final String pString )
-    {
+    public boolean isCommand( final String pString ) {
         for ( int vI=0; vI<this.aValidCommands.length; vI++ ) {
             if ( this.aValidCommands[vI].equals( pString ) )
                 return true;
