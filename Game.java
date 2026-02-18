@@ -67,7 +67,6 @@ public class Game {
             // Garden
         vGarden.setExit("north", vUnderTreeHouse);
         vGarden.setExit("east", vFrontHouse);
-        vGarden.setExit("south", vThereseHouse);
         vGarden.setExit("west", vLivingRoom);
 
             // Under Treehouse
