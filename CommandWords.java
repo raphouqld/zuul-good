@@ -34,4 +34,17 @@ public class CommandWords  {
         }
         System.out.println();
     }
+
+    /**
+     * Returns all valid command words in a single string.
+     *
+     * @return a space-separated list of all commands
+     */
+    public String getCommandList() {
+        String vCommands = "";
+        for (int vI = 0; vI < this.aValidCommands.length; vI++) {
+            vCommands = vCommands + this.aValidCommands[vI] + " ";
+        }
+        return vCommands.trim();
+    }
 } // CommandWords

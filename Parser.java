@@ -71,4 +71,15 @@ public class Parser
     public CommandWords getCommandWords() {
         return this.aValidCW;
     }
+
+    /**
+     * Returns the list of all valid command words as a single string.
+     * This method simply forwards the request to the {@link CommandWords}
+     * object used by the parser.
+     *
+     * @return a space-separated list of all valid commands
+     */
+    public String getCommandList() {
+        return this.aValidCW.getCommandList();
+    }
 } // Parser

@@ -197,7 +197,7 @@ public class Game {
                 You must find everything you need for the Christmas dinner.
                 
                 Your command words are:""");
-        this.aParser.getCommandWords().showAll();
+        System.out.println(this.aParser.getCommandList());
     }
 
     /**
