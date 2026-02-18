@@ -1,10 +1,19 @@
 #BlueJ class context
 comment0.target=Room
-comment0.text=\n\ Classe\ Room\ -\ un\ lieu\ du\ jeu\ d'aventure\ Zuul.\n\n\ @author\ Rapha\u00EBl\ Quillaud\n
+comment0.text=\n\ Room\ class\ -\ represents\ a\ single\ location\ in\ the\ "Henriette's\ Feast"\ game.\n\ Each\ room\ has\ a\ text\ description\ and\ exits\ to\ neighboring\ rooms,\n\ stored\ in\ a\ HashMap\ that\ maps\ directions\ (e.g.\ "north",\ "up")\ to\ rooms.\n\n\ @author\ Rapha\u00EBl\ Quillaud\n
 comment1.params=pDescription
 comment1.target=Room(java.lang.String)
+comment1.text=\n\ Creates\ a\ room\ with\ the\ given\ description\ and\ no\ exits\ yet.\n\n\ @param\ pDescription\ the\ textual\ description\ of\ this\ room\n
 comment2.params=
 comment2.target=java.lang.String\ getDescription()
-comment3.params=pNorth\ pEast\ pSouth\ pWest
-comment3.target=void\ setExits(Room,\ Room,\ Room,\ Room)
-numComments=4
+comment2.text=\n\ Returns\ the\ description\ of\ this\ room.\n\n\ @return\ the\ room\ description\n
+comment3.params=pDirection\ pNeighbor
+comment3.target=void\ setExit(java.lang.String,\ Room)
+comment3.text=\n\ Defines\ an\ exit\ from\ this\ room\ in\ the\ given\ direction.\n\n\ @param\ pDirection\ the\ direction\ of\ the\ exit\ (e.g.\ "north",\ "east",\ "up")\n\ @param\ pNeighbor\ \ the\ neighboring\ room\ in\ that\ direction\n
+comment4.params=pDirection
+comment4.target=Room\ getExit(java.lang.String)
+comment4.text=\n\ Returns\ the\ neighboring\ room\ in\ the\ given\ direction,\ or\ null\n\ if\ there\ is\ no\ exit\ in\ that\ direction.\n\n\ @param\ pDirection\ the\ direction\ of\ the\ desired\ exit\n\ @return\ the\ neighboring\ room,\ or\ null\ if\ none\n
+comment5.params=
+comment5.target=java.lang.String\ getExitString()
+comment5.text=\n\ Builds\ and\ returns\ a\ string\ listing\ all\ available\ exits\n\ from\ this\ room,\ in\ the\ form\ "Exits\ \:\ north\ east\ up".\n\n\ @return\ a\ string\ describing\ the\ exits\ of\ this\ room\n
+numComments=6

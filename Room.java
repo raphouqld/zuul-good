@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Set;
 /**
  * Room class - represents a single location in the "Henriette's Feast" game.
  * Each room has a text description and exits to neighboring rooms,
@@ -5,9 +7,6 @@
  *
  * @author Raphaël Quillaud
  */
-
-import java.util.HashMap;
-import java.util.Set;
 
 public class Room {
     private final String aDescription;
