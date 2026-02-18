@@ -25,7 +25,7 @@ public class Game {
      * Main game loop: prints the welcome message, then repeatedly
      * reads and processes player commands until the game ends.
      */
-    private void play() {
+    public void play() {
         this.printWelcome();
         boolean vFinished = false;
 
