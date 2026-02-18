@@ -28,18 +28,19 @@ public class Game
 
     private void createRooms() {
         // Rooms
-        Room vKitchen      = new Room("In Henriette's warm, cosy kitchen");
-        Room vLivingRoom   = new Room("In the living room, next to the Christmas tree");
-        Room vGarden       = new Room("In the snowy front garden of the house");
-        Room vKidsHut      = new Room("Inside the grandchildren's wooden hut");
-        Room vFrontHouse   = new Room("In the street, right in front of Henriette's house");
-        Room vThereseHouse = new Room("In Thérèse's house, the neighbour");
-        Room vHouseStreet  = new Room("In the quiet street in front of the houses");
-        Room vBakery       = new Room("In the bakery that smells of fresh bread");
-        Room vMainStreet   = new Room("On the main street decorated with garlands");
-        Room vButcherShop  = new Room("In the butcher's shop, where a savoury smell of roasts fills the air");
-        Room vMainSquare   = new Room("On the village square, under the huge sparkling Christmas tree");
-        Room vGrocery      = new Room("In the small village grocery store");
+        Room vKitchen       = new Room("In Henriette's warm, cosy kitchen");
+        Room vLivingRoom    = new Room("In the living room, next to the Christmas tree");
+        Room vGarden        = new Room("In the snowy front garden of the house");
+        Room vUnderTreeHouse = new Room("Under the tree house, in the snow");
+        Room vTreeHouse     = new Room("In the children's tree house, overlooking the snowy garden");
+        Room vFrontHouse    = new Room("In the street, right in front of Henriette's house");
+        Room vThereseHouse  = new Room("In Thérèse's house, the neighbour");
+        Room vHouseStreet   = new Room("In the quiet street in front of the houses");
+        Room vBakery        = new Room("In the bakery that smells of fresh bread");
+        Room vMainStreet    = new Room("On the main street decorated with garlands");
+        Room vButcherShop   = new Room("In the butcher's shop, where a savoury smell of roasts fills the air");
+        Room vMainSquare    = new Room("On the village square, under the huge sparkling Christmas tree");
+        Room vGrocery       = new Room("In the small village grocery store");
 
 
         // Exits
@@ -51,13 +52,17 @@ public class Game
         vLivingRoom.setExit("west", vKitchen);
 
             // Garden
-        vGarden.setExit("north", vKidsHut);
+        vGarden.setExit("north", vUnderTreeHouse);
         vGarden.setExit("east", vFrontHouse);
         vGarden.setExit("south", vThereseHouse);
         vGarden.setExit("west", vLivingRoom);
 
-            // Kids' hut
-        vKidsHut.setExit("south", vGarden);
+            // Under Treehouse
+        vUnderTreeHouse.setExit("south", vGarden);
+        vUnderTreeHouse.setExit("up", vTreeHouse);
+
+            // Treehouse
+        vTreeHouse.setExit("down", vUnderTreeHouse);
 
             // Front of the house
         vFrontHouse.setExit("south", vHouseStreet);
