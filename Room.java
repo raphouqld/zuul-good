@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Set;
+
 /**
  * Room class - represents a single location in the "Henriette's Feast" game.
  * Each room has a text description and exits to neighboring rooms,
@@ -7,7 +8,6 @@ import java.util.Set;
  *
  * @author Raphaël Quillaud
  */
-
 public class Room {
     private final String aDescription;
     private final HashMap<String, Room> aExits;
@@ -29,6 +29,16 @@ public class Room {
      */
     public String getDescription() {
         return this.aDescription;
+    }
+
+    /**
+     * Returns a long description of this room, including its exits,
+     * in the form: "You are in the kitchen.\nExits : north east".
+     *
+     * @return a detailed description of this room
+     */
+    public String getLongDescription() {
+        return "You are " + this.aDescription + ".\n" + this.getExitString();
     }
 
     /**

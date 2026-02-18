@@ -138,6 +138,14 @@ public class Game {
     }
 
     /**
+     * Prints a detailed description of the current room,
+     * including its exits.
+     */
+    private void look() {
+        System.out.println(this.aCurrentRoom.getLongDescription());
+    }
+
+    /**
      * Prints the welcome text and the initial location information.
      */
     private void printWelcome() {
@@ -217,6 +225,14 @@ public class Game {
                 return false;
             case "help" :
                 this.printHelp();
+                return false;
+            case "look" :
+                if (pCommand.hasSecondWord()) {
+                    System.out.println("You can't look at something in particular.");
+                }
+                else {
+                    this.look();
+                }
                 return false;
             case "quit" :
                 return this.quit(pCommand);
