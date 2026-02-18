@@ -146,6 +146,16 @@ public class Game {
     }
 
     /**
+     * Permet au joueur de "manger".
+     * Cette commande affiche simplement un message indiquant que le joueur a
+     * mangé et n'a plus faim. Pour l'instant, elle n'a aucun effet sur l'état
+     * interne du jeu (pas de gestion réelle de la faim).
+     */
+    private void eat() {
+        System.out.println("You have eaten now and you are not hungry any more.");
+    }
+
+    /**
      * Prints the welcome text and the initial location information.
      */
     private void printWelcome() {
@@ -232,6 +242,14 @@ public class Game {
                 }
                 else {
                     this.look();
+                }
+                return false;
+            case "eat" :
+                if (pCommand.hasSecondWord()) {
+                    System.out.println("You can't eat something in particular.");
+                }
+                else {
+                    eat();
                 }
                 return false;
             case "quit" :
