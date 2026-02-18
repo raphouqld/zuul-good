@@ -17,9 +17,7 @@ public class Game {
      */
     public Game() {
         this.createRooms();
-        this.aParser = new Parser();
-        play();
-    }
+        this.aParser = new Parser();}
 
     /**
      * Main game loop: prints the welcome message, then repeatedly
