@@ -24,4 +24,14 @@ public class CommandWords  {
         // if we get here, the string was not found in the commands :
         return false;
     } // isCommand()
+
+    /**
+     * Prints all valid command words to standard output.
+     */
+    public void showAll() {
+        for (String vCommand : this.aValidCommands) {
+            System.out.println(vCommand + " ");
+        }
+        System.out.println();
+    }
 } // CommandWords

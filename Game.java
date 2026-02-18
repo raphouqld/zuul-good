@@ -196,8 +196,8 @@ public class Game {
                 You are Grandma Henriette in a small snowy village.
                 You must find everything you need for the Christmas dinner.
                 
-                Your command words are:
-                  go quit help""");
+                Your command words are:""");
+        this.aParser.getCommandWords().showAll();
     }
 
     /**

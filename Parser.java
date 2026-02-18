@@ -62,4 +62,13 @@ public class Parser
             return new Command( null, null );
         }
     } // getCommand()
+
+    /**
+     * Gives access to the set of valid command words.
+     *
+     * @return the CommandWords instance used by this parser
+     */
+    public CommandWords getCommandWords() {
+        return this.aValidCW;
+    }
 } // Parser
