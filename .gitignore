@@ -19,3 +19,6 @@ target/
 # Misc
 External Libraries/
 Scratches and Consoles/
+
+# macOS
+.DS_Store
