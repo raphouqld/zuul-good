@@ -1,5 +1,3 @@
-import javafx.application.Application;
-
 /**
  * Game class - the main engine of the text adventure "Henriette's Feast".
  * It sets up the snowy village, creates all the rooms and their exits,
