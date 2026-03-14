@@ -1,0 +1,21 @@
+# Compiled Java classes
+*.class
+
+# BlueJ
+*.ctxt
+*.log
+*.bluej
+
+# Build outputs
+bin/
+build/
+out/
+target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Misc
+External Libraries/
+Scratches and Consoles/

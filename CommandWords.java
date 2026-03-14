@@ -24,7 +24,7 @@ public class CommandWords  {
         // if we get here, the string was not found in the commands :
         return false;
     } // isCommand()
-    
+
     /**
      * Returns all valid command words in a single string.
      *

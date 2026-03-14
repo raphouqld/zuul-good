@@ -1,3 +1,5 @@
+import javafx.application.Application;
+
 /**
  * Game class - the main engine of the text adventure "Henriette's Feast".
  * It sets up the snowy village, creates all the rooms and their exits,
@@ -257,5 +259,10 @@ public class Game {
                 System.out.println("Erreur du programmeur : commande non reconnue !");
                 return true;
         }
+    }
+
+    public static void main(String[] args) {
+        Game game = new Game();
+        game.play();
     }
 } // Game
