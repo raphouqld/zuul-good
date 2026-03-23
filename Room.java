@@ -69,12 +69,12 @@ public class Room {
      * @return a string describing the exits of this room
      */
     public String getExitString() {
-        String vExitString = "Exits :";
+        StringBuilder vExitString = new StringBuilder("Exits :");
         Set<String> vKeys = this.aExits.keySet();
 
         for (String vDirection : vKeys) {
-            vExitString += " " + vDirection;
+            vExitString.append(" ").append(vDirection);
         }
-        return vExitString;
+        return vExitString.toString();
     }
 } // Room
