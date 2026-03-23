@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Game class - the main engine of the text adventure "Henriette's Feast".
  * It sets up the snowy village, creates all the rooms and their exits,
@@ -10,12 +12,14 @@
 public class Game {
     private Room aCurrentRoom;
     private Parser aParser;
+    private HashMap<String, Room> aRooms;
 
     /**
      * Creates the game, initializes the rooms and the parser,
      * then starts the game loop.
      */
     public Game() {
+        this.aRooms = new HashMap<String, Room>();
         this.createRooms();
         this.aParser = new Parser();}
 
@@ -55,6 +59,20 @@ public class Game {
         Room vMainSquare    = new Room("on the village square, under the huge sparkling Christmas tree");
         Room vGrocery       = new Room("in the small village grocery store");
 
+        // Store Rooms in map
+        this.aRooms.put("kitchen", vKitchen);
+        this.aRooms.put("livingRoom", vLivingRoom);
+        this.aRooms.put("garden", vGarden);
+        this.aRooms.put("underTreeHouse", vUnderTreeHouse);
+        this.aRooms.put("treeHouse", vTreeHouse);
+        this.aRooms.put("frontHouse", vFrontHouse);
+        this.aRooms.put("thereseHouse", vThereseHouse);
+        this.aRooms.put("houseStreet", vHouseStreet);
+        this.aRooms.put("bakery", vBakery);
+        this.aRooms.put("mainStreet", vMainStreet);
+        this.aRooms.put("butcherShop", vButcherShop);
+        this.aRooms.put("mainSquare", vMainSquare);
+        this.aRooms.put("grocery", vGrocery);
 
         // Exits
             // Kitchen
