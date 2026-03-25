@@ -49,7 +49,7 @@ public class Game {
         Room vLivingRoom    = new Room("in the living room, next to the Christmas tree");
         Room vGarden        = new Room("in the snowy front garden of the house");
         Room vUnderTreeHouse = new Room("under the tree house, in the snow");
-        Room vTreeHouse     = new Room("in the children's tree house, overlooking the snowy garden");
+        Room vTreeHouse     = new Room("in the children's tree house");
         Room vFrontHouse    = new Room("in the street, right in front of Henriette's house");
         Room vThereseHouse  = new Room("in Thérèse's house, the neighbour");
         Room vHouseStreet   = new Room("in the quiet street in front of the houses");
