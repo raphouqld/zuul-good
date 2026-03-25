@@ -19,7 +19,7 @@ public class Game {
      * then starts the game loop.
      */
     public Game() {
-        this.aRooms = new HashMap<String, Room>();
+        this.aRooms = new HashMap<>();
         this.createRooms();
         this.aParser = new Parser();}
 
