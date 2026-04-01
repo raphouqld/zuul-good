@@ -11,15 +11,22 @@ import java.util.Set;
 public class Room {
     private final String aDescription;
     private final HashMap<String, Room> aExits;
+    private final String aImageName;
 
     /**
      * Creates a room with the given description and no exits yet.
      *
      * @param pDescription the textual description of this room
      */
-    public Room(final String pDescription) {
+    public Room(final String pDescription, final String pImageName) {
         this.aDescription = pDescription;
         this.aExits = new HashMap<String, Room>();
+        this.aImageName = pImageName;
+    }
+
+
+    public String getImageName() {
+        return this.aImageName;
     }
 
     /**
