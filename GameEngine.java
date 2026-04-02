@@ -1,0 +1,278 @@
+import java.util.HashMap;
+
+/**
+ * Décrivez votre classe GameEngine ici.
+ *
+ * @author Raphaël Quillaud
+ * @version 2026.04.01
+ */
+public class GameEngine {
+    private Room aCurrentRoom;
+    private Parser aParser;
+    private HashMap<String, Room> aRooms;
+    private UserInterface aGui;
+
+    public GameEngine() {
+        this.aRooms = new HashMap<String, Room>();
+        this.aParser = new Parser();
+        this.createRooms();
+    }
+
+    /**
+     * Creates all rooms of the village and connects them with exits.
+     * Also sets the starting room (Henriette's kitchen).
+     */
+    private void createRooms() {
+        // Rooms
+        Room vKitchen       = new Room("in Henriette's warm, cosy kitchen","img/kitchen.jpg");
+        Room vLivingRoom    = new Room("in the living room, next to the Christmas tree","img/livingRoom.jpg");
+        Room vGarden        = new Room("in the snowy front garden of the house","img/garden.jpg");
+        Room vUnderTreeHouse = new Room("under the tree house, in the snow","img/underTreeHouse.jpg");
+        Room vTreeHouse     = new Room("in the children's tree house","img/treeHouse.jpg");
+        Room vFrontHouse    = new Room("in the street, right in front of Henriette's house", "img/frontHouse.jpg");
+        Room vThereseHouse  = new Room("in Thérèse's house, the neighbour", "img/thereseHouse.jpg");
+        Room vHouseStreet   = new Room("in the quiet street in front of the houses", "img/houseStreet.jpg");
+        Room vBakery        = new Room("in the bakery that smells of fresh bread", "img/bakery.jpg");
+        Room vMainStreet    = new Room("on the main street decorated with garlands", "img/mainStreet.jpg");
+        Room vButcherShop   = new Room("in the butcher's shop, where a savoury smell of roasts fills the air", "img/butcherShop.jpg");
+        Room vMainSquare    = new Room("on the village square, under the huge sparkling Christmas tree", "img/mainSquare.jpg");
+        Room vGrocery       = new Room("in the small village grocery store", "img/grocery.jpg");
+
+        // Store Rooms in the map
+        this.aRooms.put("kitchen", vKitchen);
+        this.aRooms.put("livingRoom", vLivingRoom);
+        this.aRooms.put("garden", vGarden);
+        this.aRooms.put("underTreeHouse", vUnderTreeHouse);
+        this.aRooms.put("treeHouse", vTreeHouse);
+        this.aRooms.put("frontHouse", vFrontHouse);
+        this.aRooms.put("thereseHouse", vThereseHouse);
+        this.aRooms.put("houseStreet", vHouseStreet);
+        this.aRooms.put("bakery", vBakery);
+        this.aRooms.put("mainStreet", vMainStreet);
+        this.aRooms.put("butcherShop", vButcherShop);
+        this.aRooms.put("mainSquare", vMainSquare);
+        this.aRooms.put("grocery", vGrocery);
+
+        // Exits
+        // Kitchen
+        vKitchen.setExit("east", vLivingRoom);
+
+        // Living room
+        vLivingRoom.setExit("east", vGarden);
+        vLivingRoom.setExit("west", vKitchen);
+
+        // Garden
+        vGarden.setExit("north", vUnderTreeHouse);
+        vGarden.setExit("east", vFrontHouse);
+        vGarden.setExit("west", vLivingRoom);
+
+        // Under Treehouse
+        vUnderTreeHouse.setExit("south", vGarden);
+        vUnderTreeHouse.setExit("up", vTreeHouse);
+
+        // Treehouse
+        vTreeHouse.setExit("down", vUnderTreeHouse);
+
+        // Front of the house
+        vFrontHouse.setExit("south", vHouseStreet);
+        vFrontHouse.setExit("west", vGarden);
+
+        // Therese's house
+        vThereseHouse.setExit("north", vGarden);
+        vThereseHouse.setExit("east", vHouseStreet);
+
+        // House street
+        vHouseStreet.setExit("north", vFrontHouse);
+        vHouseStreet.setExit("south", vMainStreet);
+        vHouseStreet.setExit("west", vThereseHouse);
+
+        // Bakery
+        vBakery.setExit("east", vMainStreet);
+
+        // Main street
+        vMainStreet.setExit("north", vHouseStreet);
+        vMainStreet.setExit("east", vButcherShop);
+        vMainStreet.setExit("south", vMainSquare);
+        vMainStreet.setExit("west", vBakery);
+
+        // Butcher's shop
+        vButcherShop.setExit("west", vMainStreet);
+
+        // Main square
+        vMainSquare.setExit("north", vMainStreet);
+        vMainSquare.setExit("east", vGrocery);
+
+        // Grocery
+        vGrocery.setExit("west", vMainSquare);
+
+        this.aCurrentRoom = vKitchen;
+    }
+
+    /**
+     * Tries to go to the room in the direction given by the command.
+     * If there is no second word or no exit in that direction,
+     * prints an error message.
+     *
+     * @param pCommand the command containing the direction
+     */
+    private void goRoom(final Command pCommand) {
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Go where ?");
+            return;
+        }
+
+        String vDirection = pCommand.getSecondWord();
+        Room vNextRoom = this.aCurrentRoom.getExit(vDirection);
+
+        if (vNextRoom == null) {
+            this.aGui.println("There is no door !");
+            return;
+        }
+
+        this.aCurrentRoom = vNextRoom;
+        printLocationInfo();
+    }
+
+    /**
+     * Prints a detailed description of the current room,
+     * including its exits.
+     */
+    private void look() {
+        this.aGui.println(this.aCurrentRoom.getLongDescription());
+    }
+
+    /**
+     * Permet au joueur de "manger".
+     * Cette commande affiche simplement un message indiquant que le joueur a
+     * mangé et n'a plus faim. Pour l'instant, elle n'a aucun effet sur l'état
+     * interne du jeu (pas de gestion réelle de la faim).
+     */
+    private void eat() {
+        this.aGui.println("You have eaten now and you are not hungry any more.");
+    }
+
+    /**
+     * Prints the welcome text and the initial location information.
+     */
+    private void printWelcome() {
+        this.aGui.println("""
+                
+                
+                *****************************
+                Welcome to "Henriette's Feast" !
+                It is Christmas Eve in a small, snowy village.
+                Grandma Henriette must prepare the big Christmas dinner
+                for the whole family, but she suddenly realizes she forgot
+                to do all the Christmas shopping.
+                
+                Explore the village, gather everything she needs
+                for the dinner, and come back to the kitchen in time !
+                
+                Type 'help' if you need help.
+                """);
+
+        printLocationInfo();
+    }
+
+    /**
+     * Prints the current room description and its available exits.
+     */
+    private void printLocationInfo() {
+        this.aGui.println("\n" + this.aCurrentRoom.getDescription());
+        this.aGui.println(this.aCurrentRoom.getExitString() + "\n");
+
+        if (this.aCurrentRoom.getImageName() != null) {
+            this.aGui.showImage(this.aCurrentRoom.getImageName());
+        }
+    }
+
+    /**
+     * Prints a help message describing the game objective
+     * and the available commands.
+     */
+    private void printHelp() {
+        this.aGui.println("""
+                You are Grandma Henriette in a small snowy village.
+                You must find everything you need for the Christmas dinner.
+                
+                Your command words are:""");
+        this.aGui.println(this.aParser.getCommandList());
+    }
+
+    /**
+     * Interprets and executes the given command line.
+     *
+     * @param pCommandLine the command line entered by the user
+     */
+    public void interpretCommand(final String pCommandLine) {
+        this.aGui.println("> " + pCommandLine);
+        Command vCommand = this.aParser.getCommand(pCommandLine);
+
+        if (vCommand.isUnknown()) {
+            this.aGui.println("I don't know what you mean...");
+            return;
+        }
+
+        String vCommandWord = vCommand.getCommandWord();
+
+        switch (vCommandWord) {
+            case "go" :
+                this.goRoom(vCommand);
+                break;
+
+            case "help" :
+                this.printHelp();
+                break;
+
+            case "look" :
+                if (vCommand.hasSecondWord()) {
+                    this.aGui.println("You can't look at something in particular.");
+                }
+                else {
+                    this.look();
+                }
+                break;
+
+            case "eat" :
+                if (vCommand.hasSecondWord()) {
+                    this.aGui.println("You can't eat something in particular.");
+                }
+                else {
+                    this.eat();
+                }
+                break;
+
+            case "quit" :
+                if (vCommand.hasSecondWord()) {
+                    this.aGui.println("Quit what ?");
+                }
+                else {
+                    this.endGame();
+                }
+                break;
+
+            default :
+                this.aGui.println("Programmer error: command not recognised!");
+                break;
+        }
+    }
+
+    /**
+     * Stores the graphical user interface and prints the welcome message.
+     *
+     * @param pUserInterface the graphical user interface of the game
+     */
+    public void setGUI(final UserInterface pUserInterface) {
+        this.aGui = pUserInterface;
+        this.printWelcome();
+    }
+
+    /**
+     * Ends the game by printing a goodbye message and disabling input.
+     */
+    private void endGame() {
+        this.aGui.println("Thank you for playing. Goodbye.");
+        this.aGui.enable(false);
+    }
+
+} // GameEngine
