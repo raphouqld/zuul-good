@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JButton;
 
 /**
  * This class implements a simple graphical user interface with a
@@ -27,6 +28,7 @@ public class UserInterface implements ActionListener {
     private JTextField aEntryField;
     private JTextArea aLog;
     private JLabel aImage;
+    private JButton aHelpButton;
 
     /**
      * Constructs a UserInterface linked to the given game engine.
@@ -102,20 +104,27 @@ public class UserInterface implements ActionListener {
         this.aLog.setEditable(false);
 
         JScrollPane vScroller = new JScrollPane(this.aLog);
-        vScroller.setPreferredSize(new Dimension(200, 200));
+        vScroller.setPreferredSize(new Dimension(200, 400));
         vScroller.setMinimumSize(new Dimension(100, 100));
 
         this.aImage = new JLabel();
+        this.aHelpButton = new JButton("help");
+
+        JPanel vCenterPanel = new JPanel();
+        vCenterPanel.setLayout(new BorderLayout());
+        vCenterPanel.add(vScroller, BorderLayout.CENTER);
+        vCenterPanel.add(this.aHelpButton, BorderLayout.EAST);
 
         JPanel vPanel = new JPanel();
         vPanel.setLayout(new BorderLayout());
         vPanel.add(this.aImage, BorderLayout.NORTH);
-        vPanel.add(vScroller, BorderLayout.CENTER);
+        vPanel.add(vCenterPanel, BorderLayout.CENTER);
         vPanel.add(this.aEntryField, BorderLayout.SOUTH);
 
         this.aMyFrame.getContentPane().add(vPanel, BorderLayout.CENTER);
 
         this.aEntryField.addActionListener(this);
+        this.aHelpButton.addActionListener(this);
 
         this.aMyFrame.addWindowListener(
                 new WindowAdapter() {
@@ -138,7 +147,12 @@ public class UserInterface implements ActionListener {
      */
     @Override
     public void actionPerformed(final ActionEvent pE) {
-        this.processCommand();
+        if (pE.getSource() == this.aHelpButton) {
+            this.aEngine.interpretCommand("help");
+        }
+        else if (pE.getSource() == this.aEntryField) {
+            this.processCommand();
+        }
     }
 
     /**
