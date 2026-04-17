@@ -24,19 +24,19 @@ public class GameEngine {
      */
     private void createRooms() {
         // Rooms
-        Room vKitchen       = new Room("in Henriette's warm, cosy kitchen","img/kitchen.jpg");
-        Room vLivingRoom    = new Room("in the living room, next to the Christmas tree","img/livingRoom.jpg");
-        Room vGarden        = new Room("in the snowy front garden of the house","img/garden.jpg");
-        Room vUnderTreeHouse = new Room("under the tree house, in the snow","img/underTreeHouse.jpg");
-        Room vTreeHouse     = new Room("in the children's tree house","img/treeHouse.jpg");
-        Room vFrontHouse    = new Room("in the street, right in front of Henriette's house", "img/frontHouse.jpg");
-        Room vThereseHouse  = new Room("in Thérèse's house, the neighbour", "img/thereseHouse.jpg");
-        Room vHouseStreet   = new Room("in the quiet street in front of the houses", "img/houseStreet.jpg");
-        Room vBakery        = new Room("in the bakery that smells of fresh bread", "img/bakery.jpg");
-        Room vMainStreet    = new Room("on the main street decorated with garlands", "img/mainStreet.jpg");
-        Room vButcherShop   = new Room("in the butcher's shop, where a savoury smell of roasts fills the air", "img/butcherShop.jpg");
-        Room vMainSquare    = new Room("on the village square, under the huge sparkling Christmas tree", "img/mainSquare.jpg");
-        Room vGrocery       = new Room("in the small village grocery store", "img/grocery.jpg");
+        Room vKitchen       = new Room("in Henriette's warm, cosy kitchen","Images/kitchen.jpg");
+        Room vLivingRoom    = new Room("in the living room, next to the Christmas tree","Images/livingRoom.jpg");
+        Room vGarden        = new Room("in the snowy front garden of the house","Images/garden.jpg");
+        Room vUnderTreeHouse = new Room("under the tree house, in the snow","Images/underTreeHouse.jpg");
+        Room vTreeHouse     = new Room("in the children's tree house","Images/treeHouse.jpg");
+        Room vFrontHouse    = new Room("in the street, right in front of Henriette's house", "Images/frontHouse.jpg");
+        Room vThereseHouse  = new Room("in Thérèse's house, the neighbour", "Images/thereseHouse.jpg");
+        Room vHouseStreet   = new Room("in the quiet street in front of the houses", "Images/houseStreet.jpg");
+        Room vBakery        = new Room("in the bakery that smells of fresh bread", "Images/bakery.jpg");
+        Room vMainStreet    = new Room("on the main street decorated with garlands", "Images/mainStreet.jpg");
+        Room vButcherShop   = new Room("in the butcher's shop, where a savoury smell of roasts fills the air", "Images/butcherShop.jpg");
+        Room vMainSquare    = new Room("on the village square, under the huge sparkling Christmas tree", "Images/mainSquare.jpg");
+        Room vGrocery       = new Room("in the small village grocery store", "Images/grocery.jpg");
 
         // Store Rooms in the map
         this.aRooms.put("kitchen", vKitchen);
