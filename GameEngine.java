@@ -8,6 +8,7 @@ import java.util.HashMap;
  */
 public class GameEngine {
     private Room aCurrentRoom;
+    private Room aPreviousRoom;
     private Parser aParser;
     private HashMap<String, Room> aRooms;
     private UserInterface aGui;
@@ -15,6 +16,7 @@ public class GameEngine {
     public GameEngine() {
         this.aRooms = new HashMap<String, Room>();
         this.aParser = new Parser();
+        this.aPreviousRoom = null;
         this.createRooms();
     }
 
@@ -149,6 +151,7 @@ public class GameEngine {
             return;
         }
 
+        this.aPreviousRoom = aCurrentRoom;
         this.aCurrentRoom = vNextRoom;
         printLocationInfo();
     }
@@ -169,6 +172,17 @@ public class GameEngine {
      */
     private void eat() {
         this.aGui.println("You have eaten now and you are not hungry any more.");
+    }
+
+    private void back() {
+        if (this.aPreviousRoom == null) {
+            this.aGui.println("You can't go back !");
+            return;
+        }
+        Room vTemp = this.aCurrentRoom;
+        this.aCurrentRoom = this.aPreviousRoom;
+        this.aPreviousRoom = vTemp;
+        printLocationInfo();
     }
 
     /**
@@ -267,6 +281,15 @@ public class GameEngine {
                 }
                 else {
                     this.endGame();
+                }
+                break;
+
+            case "back" :
+                if (vCommand.hasSecondWord()) {
+                    this.aGui.println("Back what ?");
+                }
+                else {
+                    this.back();
                 }
                 break;
 

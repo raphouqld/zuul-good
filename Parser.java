@@ -15,8 +15,7 @@ import java.util.StringTokenizer;
  * @author  Michael Kolling and David J. Barnes + D.Bureau + Raphaël Quillaud
  * @version 2008.03.30 + 2013.09.15 + 2026.04.01
  */
-public class Parser
-{
+public class Parser {
     private CommandWords aValidCW;  // (voir la classe CommandWords)
 
     /**
