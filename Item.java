@@ -8,10 +8,16 @@
 public class Item {
     private String aDescription;
     private int aWeight;
+    private String aName;
 
-    public Item(final String pDescription, final int pWeight) {
+    public Item(final String pName,final String pDescription, final int pWeight) {
+        this.aName = pName;
         this.aDescription = pDescription;
         this.aWeight = pWeight;
+    }
+
+    public String getName() {
+        return this.aName;
     }
 
     public String getDescription() {
@@ -23,6 +29,6 @@ public class Item {
     }
 
     public String getLongDescription() {
-        return this.aDescription + " (" + this.aWeight + " kg)";
+        return this.aName + " : " + this.aDescription + " (" + this.aWeight + " kg)";
     }
-}
+} // Item

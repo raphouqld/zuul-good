@@ -12,7 +12,7 @@ public class Room {
     private final String aDescription;
     private final HashMap<String, Room> aExits;
     private final String aImageName;
-    private Item aItem;
+    private HashMap<String, Item> aItems;
 
     /**
      * Creates a room with the given description and no exits yet.
@@ -23,6 +23,7 @@ public class Room {
         this.aDescription = pDescription;
         this.aExits = new HashMap<String, Room>();
         this.aImageName = pImageName;
+        this.aItems = new HashMap<String, Item>();
     }
 
 
@@ -46,7 +47,9 @@ public class Room {
      * @return a detailed description of this room
      */
     public String getLongDescription() {
-        return "You are " + this.aDescription + ".\n" + this.getExitString() + ".\n" + this.getItemString();
+        return "You are " + this.aDescription + ".\n"
+                + this.getExitString() + ".\n"
+                + this.getItemString();
     }
 
     /**
@@ -70,19 +73,23 @@ public class Room {
         return this.aExits.get(pDirection);
     }
 
-    public void setItem(final Item pItem) {
-        this.aItem = pItem;
+    public void addItem(final Item pItem) {
+        this.aItems.put(pItem.getName(), pItem);
     }
 
-    public Item getItem() {
-        return this.aItem;
+    public Item getItem(final String pItemName) {
+        return this.aItems.get(pItemName);
     }
 
     public String getItemString() {
-        if (this.aItem == null) {
+        if (this.aItems.isEmpty()) {
             return "No item here.";
         }
-        return "Item : " + this.aItem.getLongDescription();
+        StringBuilder vItems = new StringBuilder("Items : ");
+        for (Item vItem : this.aItems.values()) {
+            vItems.append("\n- ").append(vItem.getLongDescription());
+        }
+        return vItems.toString();
     }
 
     /**
