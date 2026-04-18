@@ -12,6 +12,7 @@ public class Room {
     private final String aDescription;
     private final HashMap<String, Room> aExits;
     private final String aImageName;
+    private Item aItem;
 
     /**
      * Creates a room with the given description and no exits yet.
@@ -45,7 +46,7 @@ public class Room {
      * @return a detailed description of this room
      */
     public String getLongDescription() {
-        return "You are " + this.aDescription + ".\n" + this.getExitString();
+        return "You are " + this.aDescription + ".\n" + this.getExitString() + ".\n" + this.getItemString();
     }
 
     /**
@@ -67,6 +68,21 @@ public class Room {
      */
     public Room getExit(final String pDirection) {
         return this.aExits.get(pDirection);
+    }
+
+    public void setItem(final Item pItem) {
+        this.aItem = pItem;
+    }
+
+    public Item getItem() {
+        return this.aItem;
+    }
+
+    public String getItemString() {
+        if (this.aItem == null) {
+            return "No item here.";
+        }
+        return "Item : " + this.aItem.getLongDescription();
     }
 
     /**

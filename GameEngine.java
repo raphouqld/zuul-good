@@ -105,6 +105,20 @@ public class GameEngine {
         // Grocery
         vGrocery.setExit("west", vMainSquare);
 
+        // Items
+        Item vFlour = new Item("a bag of flour", 1);
+        Item vButter = new Item("a block of butter", 1);
+        Item vTurkey = new Item("a beautiful Christmas turkey", 5);
+        Item vSpices = new Item("a small box of Christmas spices", 1);
+        Item vWoodLog = new Item("a dry log for the fireplace", 2);
+
+        // Place items in some rooms
+        vBakery.setItem(vFlour);
+        vGrocery.setItem(vButter);
+        vButcherShop.setItem(vTurkey);
+        vThereseHouse.setItem(vSpices);
+        vUnderTreeHouse.setItem(vWoodLog);
+
         this.aCurrentRoom = vKitchen;
     }
 
@@ -178,8 +192,7 @@ public class GameEngine {
      * Prints the current room description and its available exits.
      */
     private void printLocationInfo() {
-        this.aGui.println("\n" + this.aCurrentRoom.getDescription());
-        this.aGui.println(this.aCurrentRoom.getExitString() + "\n");
+        this.aGui.println("\n" + this.aCurrentRoom.getLongDescription() + "\n");
 
         if (this.aCurrentRoom.getImageName() != null) {
             this.aGui.showImage(this.aCurrentRoom.getImageName());
