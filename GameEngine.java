@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Décrivez votre classe GameEngine ici.
@@ -8,7 +9,7 @@ import java.util.HashMap;
  */
 public class GameEngine {
     private Room aCurrentRoom;
-    private Room aPreviousRoom;
+    private Stack<Room> aPreviousRooms;
     private Parser aParser;
     private HashMap<String, Room> aRooms;
     private UserInterface aGui;
@@ -16,7 +17,7 @@ public class GameEngine {
     public GameEngine() {
         this.aRooms = new HashMap<String, Room>();
         this.aParser = new Parser();
-        this.aPreviousRoom = null;
+        this.aPreviousRooms = new Stack<Room>();
         this.createRooms();
     }
 
@@ -151,7 +152,7 @@ public class GameEngine {
             return;
         }
 
-        this.aPreviousRoom = aCurrentRoom;
+        this.aPreviousRooms.push(this.aCurrentRoom);
         this.aCurrentRoom = vNextRoom;
         printLocationInfo();
     }
@@ -175,13 +176,12 @@ public class GameEngine {
     }
 
     private void back() {
-        if (this.aPreviousRoom == null) {
+        if (this.aPreviousRooms.empty()) {
             this.aGui.println("You can't go back !");
             return;
         }
-        Room vTemp = this.aCurrentRoom;
-        this.aCurrentRoom = this.aPreviousRoom;
-        this.aPreviousRoom = vTemp;
+
+        this.aCurrentRoom = this.aPreviousRooms.pop();
         printLocationInfo();
     }
 
