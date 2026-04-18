@@ -106,6 +106,7 @@ public class GameEngine {
         vGrocery.setExit("west", vMainSquare);
 
         // Items
+        Item vRecipeBook = new Item("recipeBook", "Henriette's Christmas recipe book", 1);
         Item vFlour = new Item("flour","a bag of flour", 1);
         Item vButter = new Item("butter","a block of butter", 1);
         Item vSugar = new Item("sugar", "a packet of sugar", 1);
@@ -115,6 +116,7 @@ public class GameEngine {
         Item vWoodLog = new Item("log","a dry log for the fireplace", 2);
 
         // Place items in rooms
+        vKitchen.addItem(vRecipeBook);
         vBakery.addItem(vFlour);
         vGrocery.addItem(vButter);
         vButcherShop.addItem(vTurkey);
