@@ -1,6 +1,10 @@
 import java.util.HashMap;
 import java.util.Stack;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 /**
  * Décrivez votre classe GameEngine ici.
  *
@@ -185,6 +189,28 @@ public class GameEngine {
         printLocationInfo();
     }
 
+    private void test(final Command pCommand) {
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Test which file ? Usage : test <filename>");
+            return;
+        }
+
+        String vFileName = pCommand.getSecondWord() + ".txt";
+
+        try {
+            Scanner vScanner = new Scanner(new File(vFileName));
+            while (vScanner.hasNextLine()) {
+                String vLine = vScanner.nextLine().trim();
+                if (!vLine.isEmpty()) {
+                    this.interpretCommand(vLine);
+                }
+            }
+            vScanner.close();
+        } catch (FileNotFoundException e) {
+            this.aGui.println("Test file not found : " + vFileName);
+        }
+    }
+
     /**
      * Prints the welcome text and the initial location information.
      */
@@ -291,6 +317,10 @@ public class GameEngine {
                 else {
                     this.back();
                 }
+                break;
+
+            case "test" :
+                this.test(vCommand);
                 break;
 
             default :
