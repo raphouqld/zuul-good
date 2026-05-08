@@ -6,10 +6,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
- * Décrivez votre classe GameEngine ici.
+ * GameEngine class - handles the game logic of the text adventure "Henriette's Feast".
+ * It processes commands, manages the current room and movement history,
+ * and interacts with the user interface.
  *
- * @author Raphaël Quillaud
- * @version 2026.04.01
+ * @author Michael Kolling and David J. Barnes + D. Bureau + Raphaël Quillaud
+ * @version 2026.05.08
  */
 public class GameEngine {
     private Room aCurrentRoom;
@@ -18,6 +20,10 @@ public class GameEngine {
     private HashMap<String, Room> aRooms;
     private UserInterface aGui;
 
+    /**
+     * Constructor for GameEngine.
+     * Initializes the rooms, parser, and movement history.
+     */
     public GameEngine() {
         this.aRooms = new HashMap<String, Room>();
         this.aParser = new Parser();
@@ -162,23 +168,30 @@ public class GameEngine {
     }
 
     /**
-     * Prints a detailed description of the current room,
-     * including its exits.
+     * Executes the 'look' command. Prints the current room description
+     * and the items present in the room.
      */
     private void look() {
         this.aGui.println(this.aCurrentRoom.getLongDescription());
     }
 
     /**
-     * Permet au joueur de "manger".
-     * Cette commande affiche simplement un message indiquant que le joueur a
-     * mangé et n'a plus faim. Pour l'instant, elle n'a aucun effet sur l'état
-     * interne du jeu (pas de gestion réelle de la faim).
+     * Simulates the act of eating within the game.
+     * After invoking this method, the player's hunger state is assumed 
+     * to be resolved, as indicated by the displayed message.
+     * This action does not involve inventory or resource checks.
      */
     private void eat() {
         this.aGui.println("You have eaten now and you are not hungry any more.");
     }
 
+    /**
+     * Moves the player back to the previous room, if available.
+     * If there are no previous rooms in the navigation history, 
+     * a message is displayed indicating that the action is not possible.
+     * Otherwise, the last visited room is retrieved from the stack 
+     * and set as the current room, and the location information is updated.
+     */
     private void back() {
         if (this.aPreviousRooms.empty()) {
             this.aGui.println("You can't go back !");
@@ -189,6 +202,16 @@ public class GameEngine {
         printLocationInfo();
     }
 
+    /**
+     * Tests the commands provided in a specified file by interpreting and executing them sequentially.
+     * The file should contain one command per line. Commands are ignored if the file is not found,
+     * or if the command cannot be interpreted.
+     *
+     * If the command does not have a second word specifying the file name, a usage message is displayed.
+     * If the specified file cannot be located, an error message is displayed.
+     *
+     * @param pCommand the command containing the file name as the second word
+     */
     private void test(final Command pCommand) {
         if (!pCommand.hasSecondWord()) {
             this.aGui.println("Test which file ? Usage : test <filename>");

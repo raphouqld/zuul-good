@@ -21,6 +21,7 @@ import javax.swing.JButton;
  * text entry area, a text output area and an optional image.
  *
  * @author Michael Kolling and David J. Barnes + D. Bureau + Raphaël Quillaud
+ * @version 2026.05.08
  */
 public class UserInterface implements ActionListener {
     private GameEngine aEngine;

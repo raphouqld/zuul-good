@@ -4,6 +4,7 @@
  * and an optional second word (e.g. a direction like "north").
  *
  * @author Raphaël Quillaud
+ * @version 2026.05.08
  */
 public class Command {
     private String aCommandWord;

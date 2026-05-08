@@ -5,6 +5,7 @@
  * to gather everything she needs for the Christmas dinner.
  *
  * @author Raphaël Quillaud
+ * @version 2026.05.08
  */
 
 public class Game {
@@ -21,6 +22,11 @@ public class Game {
         this.aEngine.setGUI(this.aGui);
     }
 
+    /**
+     * Main method to start the game.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         new Game();
     }

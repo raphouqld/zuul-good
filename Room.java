@@ -7,6 +7,7 @@ import java.util.Set;
  * stored in a HashMap that maps directions (e.g. "north", "up") to rooms.
  *
  * @author Raphaël Quillaud
+ * @version 2026.05.08
  */
 public class Room {
     private final String aDescription;
@@ -27,6 +28,11 @@ public class Room {
     }
 
 
+    /**
+     * Returns the name of the image associated with this room.
+     *
+     * @return the image name
+     */
     public String getImageName() {
         return this.aImageName;
     }
@@ -73,14 +79,30 @@ public class Room {
         return this.aExits.get(pDirection);
     }
 
+    /**
+     * Adds an item to this room.
+     *
+     * @param pItem the item to add
+     */
     public void addItem(final Item pItem) {
         this.aItems.put(pItem.getName(), pItem);
     }
 
+    /**
+     * Returns the item with the given name from this room.
+     *
+     * @param pItemName the name of the item to retrieve
+     * @return the item, or null if not found
+     */
     public Item getItem(final String pItemName) {
         return this.aItems.get(pItemName);
     }
 
+    /**
+     * Returns a string listing all items currently in the room.
+     *
+     * @return a description of the items in the room
+     */
     public String getItemString() {
         if (this.aItems.isEmpty()) {
             return "No item here.";

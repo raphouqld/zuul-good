@@ -13,19 +13,21 @@ import java.util.StringTokenizer;
  * returns a command object that is marked as an unknown command.
  *
  * @author  Michael Kolling and David J. Barnes + D.Bureau + Raphaël Quillaud
- * @version 2008.03.30 + 2013.09.15 + 2026.04.01
+ * @version 2008.03.30 + 2013.09.15 + 2026.05.08
  */
 public class Parser {
-    private CommandWords aValidCW;  // (voir la classe CommandWords)
+    private CommandWords aValidCW;  // (see CommandWords class)
 
     /**
-     * Constructeur par defaut qui cree les 2 objets prevus pour les attributs
+     * Default constructor that creates the CommandWords object.
      */
     public Parser() {
         this.aValidCW = new CommandWords();
     } // Parser()
 
     /**
+     * Reads the next command from the user.
+     *
      * @param pInputLine the line entered by the user
      * @return the corresponding command
      */
