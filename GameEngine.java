@@ -14,8 +14,7 @@ import java.util.Scanner;
  * @version 2026.05.08
  */
 public class GameEngine {
-    private Room aCurrentRoom;
-    private Stack<Room> aPreviousRooms;
+    private Player aPlayer;
     private Parser aParser;
     private HashMap<String, Room> aRooms;
     private UserInterface aGui;
@@ -27,7 +26,6 @@ public class GameEngine {
     public GameEngine() {
         this.aRooms = new HashMap<String, Room>();
         this.aParser = new Parser();
-        this.aPreviousRooms = new Stack<Room>();
         this.createRooms();
     }
 
@@ -138,7 +136,7 @@ public class GameEngine {
         vBakery.addItem(vSugar);
         vBakery.addItem(vChocolate);
 
-        this.aCurrentRoom = vKitchen;
+        this.aPlayer = new Player("Henriette", vKitchen);
     }
 
     /**
@@ -155,15 +153,14 @@ public class GameEngine {
         }
 
         String vDirection = pCommand.getSecondWord();
-        Room vNextRoom = this.aCurrentRoom.getExit(vDirection);
+        Room vNextRoom = this.aPlayer.getCurrentRoom().getExit(vDirection);
 
         if (vNextRoom == null) {
             this.aGui.println("There is no door !");
             return;
         }
 
-        this.aPreviousRooms.push(this.aCurrentRoom);
-        this.aCurrentRoom = vNextRoom;
+        this.aPlayer.goTo(vNextRoom);
         printLocationInfo();
     }
 
@@ -172,7 +169,7 @@ public class GameEngine {
      * and the items present in the room.
      */
     private void look() {
-        this.aGui.println(this.aCurrentRoom.getLongDescription());
+        this.aGui.println(this.aPlayer.getCurrentRoom().getLongDescription());
     }
 
     /**
@@ -193,12 +190,11 @@ public class GameEngine {
      * and set as the current room, and the location information is updated.
      */
     private void back() {
-        if (this.aPreviousRooms.empty()) {
+        if (!this.aPlayer.goBack()) {
             this.aGui.println("You can't go back !");
             return;
         }
 
-        this.aCurrentRoom = this.aPreviousRooms.pop();
         printLocationInfo();
     }
 
@@ -206,7 +202,6 @@ public class GameEngine {
      * Tests the commands provided in a specified file by interpreting and executing them sequentially.
      * The file should contain one command per line. Commands are ignored if the file is not found,
      * or if the command cannot be interpreted.
-     *
      * If the command does not have a second word specifying the file name, a usage message is displayed.
      * If the specified file cannot be located, an error message is displayed.
      *
@@ -261,10 +256,10 @@ public class GameEngine {
      * Prints the current room description and its available exits.
      */
     private void printLocationInfo() {
-        this.aGui.println("\n" + this.aCurrentRoom.getLongDescription() + "\n");
+        this.aGui.println("\n" + this.aPlayer.getCurrentRoom().getLongDescription() + "\n");
 
-        if (this.aCurrentRoom.getImageName() != null) {
-            this.aGui.showImage(this.aCurrentRoom.getImageName());
+        if (this.aPlayer.getCurrentRoom().getImageName() != null) {
+            this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
         }
     }
 
