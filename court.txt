@@ -1,0 +1,6 @@
+help
+go east
+look
+back
+eat
+quit
