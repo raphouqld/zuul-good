@@ -65,66 +65,66 @@ public class GameEngine {
         this.aRooms.put("grocery", vGrocery);
 
         // Exits
-        // Kitchen
+            // Kitchen
         vKitchen.setExit("east", vLivingRoom);
 
-        // Living room
+            // Living room
         vLivingRoom.setExit("east", vGarden);
         vLivingRoom.setExit("west", vKitchen);
 
-        // Garden
+            // Garden
         vGarden.setExit("north", vUnderTreeHouse);
         vGarden.setExit("east", vFrontHouse);
         vGarden.setExit("west", vLivingRoom);
 
-        // Under Treehouse
+            // Under Treehouse
         vUnderTreeHouse.setExit("south", vGarden);
         vUnderTreeHouse.setExit("up", vTreeHouse);
 
-        // Treehouse
+            // Treehouse
         vTreeHouse.setExit("down", vUnderTreeHouse);
 
-        // Front of the house
+            // Front of the house
         vFrontHouse.setExit("south", vHouseStreet);
         vFrontHouse.setExit("west", vGarden);
 
-        // Therese's house
+            // Therese's house
         vThereseHouse.setExit("north", vGarden);
         vThereseHouse.setExit("east", vHouseStreet);
 
-        // House street
+            // House street
         vHouseStreet.setExit("north", vFrontHouse);
         vHouseStreet.setExit("south", vMainStreet);
         vHouseStreet.setExit("west", vThereseHouse);
 
-        // Bakery
+            // Bakery
         vBakery.setExit("east", vMainStreet);
 
-        // Main street
+            // Main street
         vMainStreet.setExit("north", vHouseStreet);
         vMainStreet.setExit("east", vButcherShop);
         vMainStreet.setExit("south", vMainSquare);
         vMainStreet.setExit("west", vBakery);
 
-        // Butcher's shop
+            // Butcher's shop
         vButcherShop.setExit("west", vMainStreet);
 
-        // Main square
+            // Main square
         vMainSquare.setExit("north", vMainStreet);
         vMainSquare.setExit("east", vGrocery);
 
-        // Grocery
+            // Grocery
         vGrocery.setExit("west", vMainSquare);
 
         // Items
-        Item vRecipeBook = new Item("Recipe Book", "Henriette's Christmas recipe book", 1);
-        Item vFlour = new Item("Flour","a bag of flour", 1);
-        Item vButter = new Item("Butter","a block of butter", 1);
-        Item vSugar = new Item("Sugar", "a packet of sugar", 1);
-        Item vChocolate = new Item("Chocolate", "a bar of dark chocolate", 1);
-        Item vTurkey = new Item("Turkey","a beautiful Christmas turkey", 5);
-        Item vSpices = new Item("Spices","a small box of Christmas spices", 1);
-        Item vWoodLog = new Item("Log","a dry log for the fireplace", 2);
+        Item vRecipeBook = new Item("book", "Henriette's Christmas recipe book", 1);
+        Item vFlour = new Item("flour","a bag of flour", 1);
+        Item vButter = new Item("butter","a block of butter", 1);
+        Item vSugar = new Item("sugar", "a packet of sugar", 1);
+        Item vChocolate = new Item("chocolate", "a bar of dark chocolate", 1);
+        Item vTurkey = new Item("turkey","a beautiful Christmas turkey", 5);
+        Item vSpices = new Item("spices","a small box of Christmas spices", 1);
+        Item vWoodLog = new Item("log","a dry log for the fireplace", 2);
 
         // Place items in rooms
         vKitchen.addItem(vRecipeBook);
@@ -196,6 +196,55 @@ public class GameEngine {
         }
 
         printLocationInfo();
+    }
+
+    /**
+     * Picks up an item from the current room.
+     * @param pCommand the command containing the item name
+     */
+    private void take(final Command pCommand) {
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Take what ?");
+            return;
+        }
+
+        if (this.aPlayer.hasItem()) {
+            this.aGui.println("You are already carrying something. Drop it first !");
+            return;
+        }
+
+        String vItemName = pCommand.getSecondWord().toLowerCase();
+        Item vItem = this.aPlayer.getCurrentRoom().getItem(vItemName);
+
+        if (vItem == null) {
+            this.aGui.println("There is no item called '" + vItemName + "' here.");
+            return;
+        }
+
+        this.aPlayer.getCurrentRoom().removeItem(vItemName);
+        this.aPlayer.pickUp(vItem);
+        this.aGui.println("You picked up : " + vItem.getName());
+    }
+
+    /**
+     * Drops the item currently carried by the player into the current room.
+     * @param pCommand the command (no second word expected)
+     */
+    private void drop(final Command pCommand) {
+        if (pCommand.hasSecondWord()) {
+            this.aGui.println("Drop what exactly ? Just type 'drop'.");
+            return;
+        }
+
+        Item vDropped = this.aPlayer.drop();
+
+        if (vDropped == null) {
+            this.aGui.println("You are not carrying anything !");
+            return;
+        }
+
+        this.aPlayer.getCurrentRoom().addItem(vDropped);
+        this.aGui.println("You dropped : " + vDropped.getName());
     }
 
     /**
@@ -339,6 +388,14 @@ public class GameEngine {
 
             case "test" :
                 this.test(vCommand);
+                break;
+
+            case "take" :
+                this.take(vCommand);
+                break;
+
+            case "drop" :
+                this.drop(vCommand);
                 break;
 
             default :

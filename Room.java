@@ -85,17 +85,21 @@ public class Room {
      * @param pItem the item to add
      */
     public void addItem(final Item pItem) {
-        this.aItems.put(pItem.getName(), pItem);
+        this.aItems.put(pItem.getName().toLowerCase(), pItem);
     }
 
     /**
-     * Returns the item with the given name from this room.
-     *
-     * @param pItemName the name of the item to retrieve
-     * @return the item, or null if not found
+     * Returns the item with the given name, or null if not found.
      */
-    public Item getItem(final String pItemName) {
-        return this.aItems.get(pItemName);
+    public Item getItem(final String pName) {
+        return this.aItems.get(pName);
+    }
+
+    /**
+     * Removes the item with the given name from this room.
+     */
+    public void removeItem(final String pName) {
+        this.aItems.remove(pName);
     }
 
     /**

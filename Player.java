@@ -11,6 +11,7 @@ public class Player {
     private String aName;
     private Room aCurrentRoom;
     private Stack<Room> aPreviousRooms;
+    private Item aItem; // l'item porté par le joueur (null si rien)
 
     public Player(final String pName, final Room pStartRoom) {
         this.aName = pName;
@@ -54,5 +55,37 @@ public class Player {
         if (this.aPreviousRooms.empty()) return false;
         this.aCurrentRoom = this.aPreviousRooms.pop();
         return true;
+    }
+
+    /**
+     * Returns the item currently carried by the player, or null if none.
+     */
+    public Item getItem() {
+        return this.aItem;
+    }
+
+    /**
+     * Returns true if the player is already carrying an item.
+     */
+    public boolean hasItem() {
+        return this.aItem != null;
+    }
+
+    /**
+     * Makes the player pick up the given item.
+     * @param pItem the item to pick up
+     */
+    public void pickUp(final Item pItem) {
+        this.aItem = pItem;
+    }
+
+    /**
+     * Makes the player drop the item they are carrying.
+     * Returns the dropped item, or null if the player had nothing.
+     */
+    public Item drop() {
+        Item vDropped = this.aItem;
+        this.aItem = null;
+        return vDropped;
     }
 }
