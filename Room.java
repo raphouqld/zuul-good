@@ -16,9 +16,10 @@ public class Room {
     private ItemList aItems;
 
     /**
-     * Creates a room with the given description and no exits yet.
+     * Creates a room with the given description and image.
      *
      * @param pDescription the textual description of this room
+     * @param pImageName the name of the image file for this room
      */
     public Room(final String pDescription, final String pImageName) {
         this.aDescription = pDescription;

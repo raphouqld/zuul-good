@@ -19,6 +19,7 @@ public class Player {
      * Constructor for Player.
      * @param pName the player's name
      * @param pStartRoom the room where the player starts
+     * @param pMaxWeight the maximum weight the player can carry
      */
     public Player(final String pName, final Room pStartRoom, final int pMaxWeight) {
         this.aName = pName;
