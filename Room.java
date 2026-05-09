@@ -90,6 +90,8 @@ public class Room {
 
     /**
      * Returns the item with the given name, or null if not found.
+     * @param pName the name of the item to retrieve
+     * @return the Item object, or null if not found
      */
     public Item getItem(final String pName) {
         return this.aItems.get(pName);
@@ -97,6 +99,7 @@ public class Room {
 
     /**
      * Removes the item with the given name from this room.
+     * @param pName the name of the item to remove
      */
     public void removeItem(final String pName) {
         this.aItems.remove(pName);

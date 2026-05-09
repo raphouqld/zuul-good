@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Stack;
 
 /**
@@ -11,16 +12,23 @@ public class Player {
     private String aName;
     private Room aCurrentRoom;
     private Stack<Room> aPreviousRooms;
-    private Item aItem; // l'item porté par le joueur (null si rien)
+    private HashMap<String, Item> aItems;
 
+    /**
+     * Constructor for Player.
+     * @param pName the player's name
+     * @param pStartRoom the room where the player starts
+     */
     public Player(final String pName, final Room pStartRoom) {
         this.aName = pName;
         this.aCurrentRoom = pStartRoom;
         this.aPreviousRooms = new Stack<Room>();
+        this.aItems = new HashMap<String, Item>();
     }
 
     /**
      * Returns the player's name.
+     * @return the name of the player
      */
     public String getName() {
         return this.aName;
@@ -28,6 +36,7 @@ public class Player {
 
     /**
      * Returns the current room of the player.
+     * @return the current Room object
      */
     public Room getCurrentRoom() {
         return this.aCurrentRoom;
@@ -58,34 +67,52 @@ public class Player {
     }
 
     /**
-     * Returns the item currently carried by the player, or null if none.
+     * Returns true if the player is carrying the item with the given name.
+     * @param pName the name of the item to check
+     * @return true if the item is in the inventory, false otherwise
      */
-    public Item getItem() {
-        return this.aItem;
+    public boolean hasItem(final String pName) {
+        return this.aItems.containsKey(pName.toLowerCase());
     }
 
     /**
-     * Returns true if the player is already carrying an item.
+     * Returns true if the player is carrying at least one item.
+     * @return true if inventory is not empty, false otherwise
      */
-    public boolean hasItem() {
-        return this.aItem != null;
+    public boolean hasItems() {
+        return !this.aItems.isEmpty();
     }
 
     /**
      * Makes the player pick up the given item.
-     * @param pItem the item to pick up
+     * @param pItem the Item to pick up
      */
     public void pickUp(final Item pItem) {
-        this.aItem = pItem;
+        this.aItems.put(pItem.getName().toLowerCase(), pItem);
     }
 
     /**
-     * Makes the player drop the item they are carrying.
-     * Returns the dropped item, or null if the player had nothing.
+     * Removes and returns the item with the given name from the inventory.
+     * Returns null if the player is not carrying that item.
+     * @param pName the name of the item to drop
+     * @return the dropped Item, or null if not found
      */
-    public Item drop() {
-        Item vDropped = this.aItem;
-        this.aItem = null;
-        return vDropped;
+    public Item drop(final String pName) {
+        return this.aItems.remove(pName.toLowerCase());
+    }
+
+    /**
+     * Returns a string listing all items carried by the player.
+     * @return a description of the player's inventory
+     */
+    public String getInventoryString() {
+        if (this.aItems.isEmpty()) {
+            return "You are not carrying anything.";
+        }
+        StringBuilder vResult = new StringBuilder("Inventory :");
+        for (Item vItem : this.aItems.values()) {
+            vResult.append("\n- ").append(vItem.getLongDescription());
+        }
+        return vResult.toString();
     }
 }

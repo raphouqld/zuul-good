@@ -199,17 +199,12 @@ public class GameEngine {
     }
 
     /**
-     * Picks up an item from the current room.
-     * @param pCommand the command containing the item name
+     * Picks up an item from the current room and adds it to the player's inventory.
+     * @param pCommand the command containing the name of the item to take
      */
     private void take(final Command pCommand) {
         if (!pCommand.hasSecondWord()) {
             this.aGui.println("Take what ?");
-            return;
-        }
-
-        if (this.aPlayer.hasItem()) {
-            this.aGui.println("You are already carrying something. Drop it first !");
             return;
         }
 
@@ -225,28 +220,27 @@ public class GameEngine {
         this.aPlayer.pickUp(vItem);
         this.aGui.println("You picked up : " + vItem.getName());
     }
-
     /**
      * Drops the item currently carried by the player into the current room.
-     * @param pCommand the command (no second word expected)
+     * @param pCommand the command containing the name of the item to drop
      */
     private void drop(final Command pCommand) {
-        if (pCommand.hasSecondWord()) {
-            this.aGui.println("Drop what exactly ? Just type 'drop'.");
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Drop what ? " + this.aPlayer.getInventoryString());
             return;
         }
 
-        Item vDropped = this.aPlayer.drop();
+        String vItemName = pCommand.getSecondWord().toLowerCase();
+        Item vDropped = this.aPlayer.drop(vItemName);
 
         if (vDropped == null) {
-            this.aGui.println("You are not carrying anything !");
+            this.aGui.println("You are not carrying '" + vItemName + "'.");
             return;
         }
 
         this.aPlayer.getCurrentRoom().addItem(vDropped);
         this.aGui.println("You dropped : " + vDropped.getName());
     }
-
     /**
      * Tests the commands provided in a specified file by interpreting and executing them sequentially.
      * The file should contain one command per line. Commands are ignored if the file is not found,
@@ -396,6 +390,10 @@ public class GameEngine {
 
             case "drop" :
                 this.drop(vCommand);
+                break;
+
+            case "inventory" :
+                this.aGui.println(this.aPlayer.getInventoryString());
                 break;
 
             default :
