@@ -128,7 +128,7 @@ public class GameEngine {
         Item vPlate = new Item("plate", "a large serving plate, perfect for the Christmas dinner", 3);
         Item vCookie = new Item("cookie", "a delicious cookie made by love by Thérèse. Why is it so heavy though ? ...", 5);
 
-        Beamer vBeamer = new Beamer("beamer", "a mysterious teleportation device", 3);
+        Beamer vBeamer = new Beamer("beamer", "a mysterious teleportation device. Be careful, you can only use it once...", 3);
 
         // Place items in rooms
         vKitchen.addItem(vRecipeBook);
@@ -328,6 +328,7 @@ public class GameEngine {
         }
 
         this.aPlayer.goTo(vBeamer.fire());
+        this.aPlayer.drop(vItemName);
         this.aGui.println("*WHOOSH* You have been teleported !");
         printLocationInfo();
     }

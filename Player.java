@@ -140,6 +140,14 @@ public class Player {
     }
 
     /**
+     * Removes the item with the given name from the player's inventory.
+     * @param pName the name of the item to remove
+     */
+    public void removeItem(final String pName) {
+        this.aItems.removeItem(pName);
+    }
+
+    /**
      * Returns a string listing all items carried by the player.
      * @return a description of the player's inventory
      */
