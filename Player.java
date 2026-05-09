@@ -122,6 +122,10 @@ public class Player {
         return this.aItems.getInventoryString();
     }
 
+    /**
+     * Returns a string describing the current and maximum weight carried by the player.
+     * @return a string representation of the carried weight
+     */
     public String getWeightString() {
         return "Weight carried : " + this.aCurrentWeight + "/" + this.aMaxWeight;
     }
