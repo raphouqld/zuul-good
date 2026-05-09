@@ -5,7 +5,7 @@
  * to gather everything she needs for the Christmas dinner.
  *
  * @author Raphaël Quillaud
- * @version 2026.05.08
+ * @version 2026.05.09
  */
 
 public class Game {

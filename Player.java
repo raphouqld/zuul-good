@@ -6,13 +6,13 @@ import java.util.Stack;
  * Stores the player's current room and navigation history.
  *
  * @author Raphaël Quillaud
- * @version 2026.05.08
+ * @version 2026.05.09
  */
 public class Player {
     private String aName;
     private Room aCurrentRoom;
     private Stack<Room> aPreviousRooms;
-    private HashMap<String, Item> aItems;
+    private ItemList aItems;
 
     /**
      * Constructor for Player.
@@ -23,7 +23,7 @@ public class Player {
         this.aName = pName;
         this.aCurrentRoom = pStartRoom;
         this.aPreviousRooms = new Stack<Room>();
-        this.aItems = new HashMap<String, Item>();
+        this.aItems = new ItemList();
     }
 
     /**
@@ -72,7 +72,7 @@ public class Player {
      * @return true if the item is in the inventory, false otherwise
      */
     public boolean hasItem(final String pName) {
-        return this.aItems.containsKey(pName.toLowerCase());
+        return this.aItems.contains(pName);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Player {
      * @param pItem the Item to pick up
      */
     public void pickUp(final Item pItem) {
-        this.aItems.put(pItem.getName().toLowerCase(), pItem);
+        this.aItems.addItem(pItem);
     }
 
     /**
@@ -98,7 +98,7 @@ public class Player {
      * @return the dropped Item, or null if not found
      */
     public Item drop(final String pName) {
-        return this.aItems.remove(pName.toLowerCase());
+        return this.aItems.removeItem(pName);
     }
 
     /**
@@ -106,13 +106,6 @@ public class Player {
      * @return a description of the player's inventory
      */
     public String getInventoryString() {
-        if (this.aItems.isEmpty()) {
-            return "You are not carrying anything.";
-        }
-        StringBuilder vResult = new StringBuilder("Inventory :");
-        for (Item vItem : this.aItems.values()) {
-            vResult.append("\n- ").append(vItem.getLongDescription());
-        }
-        return vResult.toString();
+        return this.aItems.getInventoryString();
     }
 }

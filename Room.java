@@ -7,13 +7,13 @@ import java.util.Set;
  * stored in a HashMap that maps directions (e.g. "north", "up") to rooms.
  *
  * @author Raphaël Quillaud
- * @version 2026.05.08
+ * @version 2026.05.09
  */
 public class Room {
     private final String aDescription;
     private final HashMap<String, Room> aExits;
     private final String aImageName;
-    private HashMap<String, Item> aItems;
+    private ItemList aItems;
 
     /**
      * Creates a room with the given description and no exits yet.
@@ -24,7 +24,7 @@ public class Room {
         this.aDescription = pDescription;
         this.aExits = new HashMap<String, Room>();
         this.aImageName = pImageName;
-        this.aItems = new HashMap<String, Item>();
+        this.aItems = new ItemList();
     }
 
 
@@ -85,7 +85,7 @@ public class Room {
      * @param pItem the item to add
      */
     public void addItem(final Item pItem) {
-        this.aItems.put(pItem.getName().toLowerCase(), pItem);
+        this.aItems.addItem(pItem);
     }
 
     /**
@@ -94,7 +94,7 @@ public class Room {
      * @return the Item object, or null if not found
      */
     public Item getItem(final String pName) {
-        return this.aItems.get(pName);
+        return this.aItems.getItem(pName);
     }
 
     /**
@@ -102,7 +102,7 @@ public class Room {
      * @param pName the name of the item to remove
      */
     public void removeItem(final String pName) {
-        this.aItems.remove(pName);
+        this.aItems.removeItem(pName);
     }
 
     /**
@@ -111,14 +111,7 @@ public class Room {
      * @return a description of the items in the room
      */
     public String getItemString() {
-        if (this.aItems.isEmpty()) {
-            return "No item here.";
-        }
-        StringBuilder vItems = new StringBuilder("Items : ");
-        for (Item vItem : this.aItems.values()) {
-            vItems.append("\n- ").append(vItem.getLongDescription());
-        }
-        return vItems.toString();
+        return this.aItems.getItemString();
     }
 
     /**

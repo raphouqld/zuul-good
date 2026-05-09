@@ -4,7 +4,7 @@
  * It is used by the parser to recognise which words are valid commands.
  *
  * @author Michael Kolling and David J. Barnes + D. Bureau + Raphaël Quillaud
- * @version 2008.03.30 + 2019.09.25 + 2026.05.08
+ * @version 2008.03.30 + 2019.09.25 + 2026.05.09
  */
 public class CommandWords  {
     // a constant array that will hold all valid command words

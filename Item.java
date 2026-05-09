@@ -4,7 +4,7 @@
  * Each item has a name, a description and a weight.
  *
  * @author Raphaël Quillaud
- * @version 2026.05.08
+ * @version 2026.05.09
  */
 public class Item {
     private String aDescription;

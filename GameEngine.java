@@ -11,7 +11,7 @@ import java.util.Scanner;
  * and interacts with the user interface.
  *
  * @author Michael Kolling and David J. Barnes + D. Bureau + Raphaël Quillaud
- * @version 2026.05.08
+ * @version 2026.05.09
  */
 public class GameEngine {
     private Player aPlayer;
