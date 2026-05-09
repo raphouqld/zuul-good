@@ -128,6 +128,8 @@ public class GameEngine {
         Item vPlate = new Item("plate", "a large serving plate, perfect for the Christmas dinner", 3);
         Item vCookie = new Item("cookie", "a delicious cookie made by love by Thérèse. Why is it so heavy though ? ...", 5);
 
+        Beamer vBeamer = new Beamer("beamer", "a mysterious teleportation device", 3);
+
         // Place items in rooms
         vKitchen.addItem(vRecipeBook);
         vBakery.addItem(vFlour);
@@ -139,6 +141,8 @@ public class GameEngine {
         vUnderTreeHouse.addItem(vWoodLog);
         vThereseHouse.addItem(vCookie);
         vThereseHouse.addItem(vPlate);
+
+        vTreeHouse.addItem(vBeamer);
 
         this.aPlayer = new Player("Henriette", vKitchen, 5);
     }
@@ -264,6 +268,68 @@ public class GameEngine {
 
         this.aPlayer.getCurrentRoom().addItem(vDropped);
         this.aGui.println("You dropped : " + vDropped.getName());
+    }
+
+    /**
+     * Charges the beamer with the current room.
+     * @param pCommand the command containing the beamer name
+     */
+    private void charge(final Command pCommand) {
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Charge what ?");
+            return;
+        }
+
+        String vItemName = pCommand.getSecondWord().toLowerCase();
+        Item vItem = this.aPlayer.getItem(vItemName);
+
+        if (vItem == null) {
+            this.aGui.println("You are not carrying '" + vItemName + "'.");
+            return;
+        }
+
+        if (!(vItem instanceof Beamer)) {
+            this.aGui.println("You can't charge that !");
+            return;
+        }
+
+        ((Beamer) vItem).charge(this.aPlayer.getCurrentRoom());
+        this.aGui.println("Beamer charged ! It will bring you back " + this.aPlayer.getCurrentRoom().getDescription());
+    }
+
+    /**
+     * Fires the beamer, teleporting the player to the charged room.
+     * @param pCommand the command containing the beamer name
+     */
+    private void fire(final Command pCommand) {
+        if (!pCommand.hasSecondWord()) {
+            this.aGui.println("Fire what ?");
+            return;
+        }
+
+        String vItemName = pCommand.getSecondWord().toLowerCase();
+        Item vItem = this.aPlayer.getItem(vItemName);
+
+        if (vItem == null) {
+            this.aGui.println("You are not carrying '" + vItemName + "'.");
+            return;
+        }
+
+        if (!(vItem instanceof Beamer)) {
+            this.aGui.println("You can't fire that !");
+            return;
+        }
+
+        Beamer vBeamer = (Beamer) vItem;
+
+        if (!vBeamer.isCharged()) {
+            this.aGui.println("The beamer is not charged !");
+            return;
+        }
+
+        this.aPlayer.goTo(vBeamer.fire());
+        this.aGui.println("*WHOOSH* You have been teleported !");
+        printLocationInfo();
     }
 
     /**
@@ -435,6 +501,14 @@ public class GameEngine {
             case "items" :
                 this.aGui.println(this.aPlayer.getInventoryString());
                 this.aGui.println(this.aPlayer.getWeightString());
+                break;
+
+            case "charge" :
+                this.charge(vCommand);
+                break;
+
+            case "fire" :
+                this.fire(vCommand);
                 break;
 
             default :

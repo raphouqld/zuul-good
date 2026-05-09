@@ -170,4 +170,13 @@ public class Player {
     public int getMaxWeight() {
         return this.aMaxWeight;
     }
+
+    /**
+     * Returns the item with the given name without removing it.
+     * Returns null if not found.
+     * @param pName the name of the item
+     */
+    public Item getItem(final String pName) {
+        return this.aItems.getItem(pName);
+    }
 } // Player
