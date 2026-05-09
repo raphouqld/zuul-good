@@ -381,7 +381,7 @@ public class GameEngine {
                 Explore the village, gather everything she needs
                 for the dinner, and come back to the kitchen in time !
                 
-                Type 'help' if you need help.
+                Type 'help' or use the help button if you need help.
                 """);
 
         printLocationInfo();
