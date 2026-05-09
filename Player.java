@@ -13,17 +13,21 @@ public class Player {
     private Room aCurrentRoom;
     private Stack<Room> aPreviousRooms;
     private ItemList aItems;
+    private int aMaxWeight;
+    private int aCurrentWeight;
 
     /**
      * Constructor for Player.
      * @param pName the player's name
      * @param pStartRoom the room where the player starts
      */
-    public Player(final String pName, final Room pStartRoom) {
+    public Player(final String pName, final Room pStartRoom, final int pMaxWeight) {
         this.aName = pName;
         this.aCurrentRoom = pStartRoom;
         this.aPreviousRooms = new Stack<Room>();
         this.aItems = new ItemList();
+        this.aMaxWeight = pMaxWeight;
+        this.aCurrentWeight = 0;
     }
 
     /**
@@ -87,8 +91,14 @@ public class Player {
      * Makes the player pick up the given item.
      * @param pItem the Item to pick up
      */
-    public void pickUp(final Item pItem) {
+    public boolean pickUp(final Item pItem) {
+        if (this.aCurrentWeight + pItem.getWeight() > this.aMaxWeight) {
+            return false;
+        }
+
         this.aItems.addItem(pItem);
+        this.aCurrentWeight += pItem.getWeight();
+        return true;
     }
 
     /**
@@ -98,7 +108,11 @@ public class Player {
      * @return the dropped Item, or null if not found
      */
     public Item drop(final String pName) {
-        return this.aItems.removeItem(pName);
+        Item vDropped = this.aItems.removeItem(pName);
+        if (vDropped != null) {
+            this.aCurrentWeight -= vDropped.getWeight();
+        }
+        return vDropped;
     }
 
     /**
@@ -107,5 +121,9 @@ public class Player {
      */
     public String getInventoryString() {
         return this.aItems.getInventoryString();
+    }
+
+    public String getWeightString() {
+        return "Weight carried : " + this.aCurrentWeight + "/" + this.aMaxWeight;
     }
 }

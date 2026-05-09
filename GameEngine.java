@@ -136,7 +136,7 @@ public class GameEngine {
         vBakery.addItem(vSugar);
         vBakery.addItem(vChocolate);
 
-        this.aPlayer = new Player("Henriette", vKitchen);
+        this.aPlayer = new Player("Henriette", vKitchen, 10);
     }
 
     /**
@@ -213,6 +213,11 @@ public class GameEngine {
 
         if (vItem == null) {
             this.aGui.println("There is no item called '" + vItemName + "' here.");
+            return;
+        }
+
+        if (!this.aPlayer.pickUp(vItem)) {
+            this.aGui.println("Too heavy ! " + this.aPlayer.getWeightString());
             return;
         }
 
