@@ -242,6 +242,7 @@ public class GameEngine {
         this.aPlayer.getCurrentRoom().removeItem(vItemName);
         this.aGui.println("You picked up : " + vItem.getName());
     }
+
     /**
      * Drops the item currently carried by the player into the current room.
      * @param pCommand the command containing the name of the item to drop
@@ -263,6 +264,7 @@ public class GameEngine {
         this.aPlayer.getCurrentRoom().addItem(vDropped);
         this.aGui.println("You dropped : " + vDropped.getName());
     }
+
     /**
      * Tests the commands provided in a specified file by interpreting and executing them sequentially.
      * The file should contain one command per line. Commands are ignored if the file is not found,
@@ -322,6 +324,7 @@ public class GameEngine {
      */
     private void printLocationInfo() {
         this.aGui.println("\n" + this.aPlayer.getCurrentRoom().getLongDescription() + "\n");
+        this.aGui.println("[ " + this.aPlayer.getRemainingMoves() + " moves remaining ]");
 
         if (this.aPlayer.getCurrentRoom().getImageName() != null) {
             this.aGui.showImage(this.aPlayer.getCurrentRoom().getImageName());
@@ -356,6 +359,20 @@ public class GameEngine {
         }
 
         String vCommandWord = vCommand.getCommandWord();
+
+        if (!vCommandWord.equals("help") && !vCommandWord.equals("quit") && !vCommandWord.equals("test")) {
+            this.aPlayer.incrementMoves();
+            if (this.aPlayer.isOutOfTime()) {
+                this.aGui.println("\nIt's midnight ! The family has arrived but there is nothing ready...");
+                this.aGui.println("Henriette has failed. Game over !");
+                this.endGame();
+                return;
+            }
+            // Avertissement à 10 coups restants
+            if (this.aPlayer.getRemainingMoves() == 10) {
+                this.aGui.println("⚠ Hurry up ! Only 10 moves left before midnight !");
+            }
+        }
 
         switch (vCommandWord) {
             case "go" :

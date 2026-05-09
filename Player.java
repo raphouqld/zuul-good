@@ -14,7 +14,8 @@ public class Player {
     private ItemList aItems;
     private int aMaxWeight;
     private int aCurrentWeight;
-
+    private int aMoveCount;
+    private int aMaxMoves;
     /**
      * Constructor for Player.
      * @param pName the player's name
@@ -28,6 +29,29 @@ public class Player {
         this.aItems = new ItemList();
         this.aMaxWeight = pMaxWeight;
         this.aCurrentWeight = 0;
+        this.aMoveCount = 0;
+        this.aMaxMoves = 50;
+    }
+
+    /**
+     * Increments the move counter by one.
+     */
+    public void incrementMoves() {
+        this.aMoveCount++;
+    }
+
+    /**
+     * Returns true if the player has exceeded the maximum number of moves.
+     */
+    public boolean isOutOfTime() {
+        return this.aMoveCount >= this.aMaxMoves;
+    }
+
+    /**
+     * Returns the number of remaining moves.
+     */
+    public int getRemainingMoves() {
+        return this.aMaxMoves - this.aMoveCount;
     }
 
     /**
@@ -146,4 +170,4 @@ public class Player {
     public int getMaxWeight() {
         return this.aMaxWeight;
     }
-}
+} // Player
