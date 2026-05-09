@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Stack;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,7 +40,7 @@ public class GameEngine {
         Room vUnderTreeHouse = new Room("under the tree house, in the snow","Images/underTreeHouse.jpg");
         Room vTreeHouse     = new Room("in the children's tree house","Images/treeHouse.jpg");
         Room vFrontHouse    = new Room("in the street, right in front of Henriette's house", "Images/frontHouse.jpg");
-        Room vThereseHouse  = new Room("in Thérèse's house, the neighbour", "Images/thereseHouse.jpg");
+        Room vThereseHouse  = new Room("in Thérèse's house, the neighbour. Look ! She left a cookie on the table with a note that says : 'You'll thank me later ;)'", "Images/thereseHouse.jpg");
         Room vHouseStreet   = new Room("in the quiet street in front of the houses", "Images/houseStreet.jpg");
         Room vBakery        = new Room("in the bakery that smells of fresh bread", "Images/bakery.jpg");
         Room vMainStreet    = new Room("on the main street decorated with garlands", "Images/mainStreet.jpg");
@@ -124,19 +123,23 @@ public class GameEngine {
         Item vChocolate = new Item("chocolate", "a bar of dark chocolate", 1);
         Item vTurkey = new Item("turkey","a beautiful Christmas turkey", 5);
         Item vSpices = new Item("spices","a small box of Christmas spices", 1);
-        Item vWoodLog = new Item("log","a dry log for the fireplace", 3);
+        Item vWoodLog = new Item("log","a dry log for the fireplace", 6);
+        Item vPlate = new Item("plate", "a large serving plate, perfect for the Christmas dinner", 3);
+        Item vCookie = new Item("cookie", "a delicious cookie made by love by Thérèse. Why is it so heavy though ? ...", 5);
 
         // Place items in rooms
         vKitchen.addItem(vRecipeBook);
         vBakery.addItem(vFlour);
         vGrocery.addItem(vButter);
+        vGrocery.addItem(vSpices);
+        vGrocery.addItem(vSugar);
+        vGrocery.addItem(vChocolate);
         vButcherShop.addItem(vTurkey);
-        vThereseHouse.addItem(vSpices);
         vUnderTreeHouse.addItem(vWoodLog);
-        vBakery.addItem(vSugar);
-        vBakery.addItem(vChocolate);
+        vThereseHouse.addItem(vCookie);
+        vThereseHouse.addItem(vPlate);
 
-        this.aPlayer = new Player("Henriette", vKitchen, 10);
+        this.aPlayer = new Player("Henriette", vKitchen, 5);
     }
 
     /**
@@ -173,13 +176,28 @@ public class GameEngine {
     }
 
     /**
-     * Simulates the act of eating within the game.
-     * After invoking this method, the player's hunger state is assumed 
-     * to be resolved, as indicated by the displayed message.
-     * This action does not involve inventory or resource checks.
+     * Executes the 'eat' command. If the player eats a cookie, their maximum 
+     * weight capacity is doubled. Other items cannot be eaten.
+     *
+     * @param pCommand the command containing the name of the item to eat
      */
-    private void eat() {
-        this.aGui.println("You have eaten now and you are not hungry any more.");
+    private void eat(final Command pCommand) {
+        String vItemName = pCommand.getSecondWord().toLowerCase();
+
+        if (!this.aPlayer.hasItem(vItemName)) {
+            this.aGui.println("You are not carrying any '" + vItemName + "'.");
+            return;
+        }
+
+        if (vItemName.equals("cookie")) {
+            this.aPlayer.drop(vItemName);
+            this.aPlayer.setMaxWeight(this.aPlayer.getMaxWeight() * 2);
+            this.aGui.println("You eat the cookie that Thérèse left you. You ask yourself why it is so heavy...");
+            this.aGui.println("Your carrying capacity has doubled ! " + this.aPlayer.getWeightString());
+        }
+        else {
+            this.aGui.println("You can't eat that ! Keep everything for the dinner...");
+        }
     }
 
     /**
@@ -358,11 +376,11 @@ public class GameEngine {
                 break;
 
             case "eat" :
-                if (vCommand.hasSecondWord()) {
-                    this.aGui.println("You can't eat something in particular.");
+                if (!vCommand.hasSecondWord()) {
+                    this.aGui.println("Eat what ?");
                 }
                 else {
-                    this.eat();
+                    this.eat(vCommand);
                 }
                 break;
 

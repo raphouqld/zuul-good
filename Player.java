@@ -129,4 +129,20 @@ public class Player {
     public String getWeightString() {
         return "Weight carried : " + this.aCurrentWeight + "/" + this.aMaxWeight;
     }
+
+    /**
+     * Updates the player's maximum carrying capacity.
+     * @param pMaxWeight the new maximum weight
+     */
+    public void setMaxWeight(final int pMaxWeight) {
+        this.aMaxWeight = pMaxWeight;
+    }
+
+    /**
+     * Returns the player's maximum carrying capacity.
+     * @return the maximum weight
+     */
+    public int getMaxWeight() {
+        return this.aMaxWeight;
+    }
 }
