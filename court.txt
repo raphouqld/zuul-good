@@ -1,6 +1,12 @@
 help
+look
 go east
 look
 back
-eat
+eat cookie
+eat flour
+take book
+items
+drop book
+items
 quit

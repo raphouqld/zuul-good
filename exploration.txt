@@ -1,8 +1,11 @@
 help
 look
-eat
+go north
 go east
-look
+go east
+take book
+items
+go east
 go east
 look
 go north
@@ -19,38 +22,48 @@ go west
 look
 go west
 look
+take flour
+take sugar
+take chocolate
+items
+go east
+go east
 go east
 look
-go east
-look
-go east
-look
+take butter
+take spices
+items
 go west
-look
 go south
 look
-go east
-look
-go west
-go north
-look
-go north
-look
-go west
-look
-go west
-look
-go east
-go east
-go east
-go south
-go east
-go west
-go north
-go north
-go west
-go west
+take turkey
+items
 back
+go north
+go east
+look
+go west
+go north
+go north
+go north
+go up
+look
+go down
+go south
+go west
+go west
+go north
+look
+take cookie
+eat cookie
+items
+take plate
+items
+drop plate
+items
+take skibidi
+eat book
+look
 back
 back
 look
