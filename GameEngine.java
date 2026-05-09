@@ -117,14 +117,14 @@ public class GameEngine {
         vGrocery.setExit("west", vMainSquare);
 
         // Items
-        Item vRecipeBook = new Item("book", "Henriette's Christmas recipe book", 1);
+        Item vRecipeBook = new Item("book", "Henriette's Christmas recipe book", 2);
         Item vFlour = new Item("flour","a bag of flour", 1);
         Item vButter = new Item("butter","a block of butter", 1);
         Item vSugar = new Item("sugar", "a packet of sugar", 1);
         Item vChocolate = new Item("chocolate", "a bar of dark chocolate", 1);
         Item vTurkey = new Item("turkey","a beautiful Christmas turkey", 5);
         Item vSpices = new Item("spices","a small box of Christmas spices", 1);
-        Item vWoodLog = new Item("log","a dry log for the fireplace", 2);
+        Item vWoodLog = new Item("log","a dry log for the fireplace", 3);
 
         // Place items in rooms
         vKitchen.addItem(vRecipeBook);
@@ -222,7 +222,6 @@ public class GameEngine {
         }
 
         this.aPlayer.getCurrentRoom().removeItem(vItemName);
-        this.aPlayer.pickUp(vItem);
         this.aGui.println("You picked up : " + vItem.getName());
     }
     /**
