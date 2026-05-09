@@ -396,8 +396,9 @@ public class GameEngine {
                 this.drop(vCommand);
                 break;
 
-            case "inventory" :
+            case "items" :
                 this.aGui.println(this.aPlayer.getInventoryString());
+                this.aGui.println(this.aPlayer.getWeightString());
                 break;
 
             default :
