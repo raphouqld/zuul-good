@@ -111,6 +111,7 @@ public class GameEngine {
             // Main square
         vMainSquare.setExit("north", vMainStreet);
         vMainSquare.setExit("east", vGrocery);
+        vMainSquare.setExit("west", vKitchen);
 
             // Grocery
         vGrocery.setExit("west", vMainSquare);
